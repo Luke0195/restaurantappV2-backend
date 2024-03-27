@@ -1,6 +1,17 @@
 version: '3.9'
 
 services:
+  app:
+    container_name: waiter_app
+    build: .
+    ports:
+      - 8080:8080
+    restart: always
+    depends_on:
+      - postgres
+      - mongodb
+
+
   mongodb:
     container_name: waiterdb_mongo
     image: 'mongo:latest'
@@ -10,8 +21,7 @@ services:
        MONGO_INITDB_ROOT_USERNAME: root
     ports:
       - 27017:27017
-    networks:
-      - waiterapp_network
+
   postgres:
     container_name: waiterdb_postgres
     image: postgres:16
@@ -24,8 +34,7 @@ services:
       - '5432:5432'
     volumes:
       - pgData:/var/lib/postgresql
-    networks:
-     -  waiterapp_network
+
 
 
 volumes:

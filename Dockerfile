@@ -6,4 +6,4 @@ RUN mvn -f /app/pom.xml clean package -Dmaven.test.skip=true
 FROM openjdk:17
 EXPOSE 8080
 COPY --from=build /app/target/*war app.war
-ENTRYPOINT ["java", "-jar", "/app.war"]
+CMD ["java", "-jar", "/app.war"]

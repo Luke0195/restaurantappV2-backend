@@ -1,4 +1,4 @@
-package br.com.waiterapp.application.entities.enums;
+package br.com.waiterapp.application.domain.user.enums;
 
 import lombok.Getter;
 

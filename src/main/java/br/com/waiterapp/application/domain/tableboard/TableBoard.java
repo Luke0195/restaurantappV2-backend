@@ -1,4 +1,4 @@
-package br.com.waiterapp.application.entities;
+package br.com.waiterapp.application.domain.tableboard;
 
 
 import jakarta.persistence.*;

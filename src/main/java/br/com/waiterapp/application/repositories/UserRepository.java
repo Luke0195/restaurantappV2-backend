@@ -1,6 +1,6 @@
 package br.com.waiterapp.application.repositories;
 
-import br.com.waiterapp.application.entities.User;
+import br.com.waiterapp.application.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

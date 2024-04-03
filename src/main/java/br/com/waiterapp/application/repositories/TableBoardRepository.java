@@ -1,6 +1,6 @@
 package br.com.waiterapp.application.repositories;
 
-import br.com.waiterapp.application.entities.TableBoard;
+import br.com.waiterapp.application.domain.tableboard.TableBoard;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

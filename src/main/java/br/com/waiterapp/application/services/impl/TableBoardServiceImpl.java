@@ -1,8 +1,8 @@
 package br.com.waiterapp.application.services.impl;
 
 import br.com.waiterapp.application.dtos.TableBoardDto;
-import br.com.waiterapp.application.entities.TableBoard;
-import br.com.waiterapp.application.mappers.TableBoardMapper;
+import br.com.waiterapp.application.domain.tableboard.TableBoard;
+import br.com.waiterapp.application.mappers.tableboard.TableBoardMapper;
 import br.com.waiterapp.application.repositories.TableBoardRepository;
 import br.com.waiterapp.application.services.TableBoardService;
 import br.com.waiterapp.application.services.exceptions.EntityAlreadyExistsException;

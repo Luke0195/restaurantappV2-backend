@@ -1,6 +1,6 @@
 package br.com.waiterapp.application.controllers.exceptions;
 
-import br.com.waiterapp.application.mappers.StandardErrorMapper;
+import br.com.waiterapp.application.mappers.standarderror.StandardErrorMapper;
 import br.com.waiterapp.application.services.exceptions.EntityAlreadyExistsException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;

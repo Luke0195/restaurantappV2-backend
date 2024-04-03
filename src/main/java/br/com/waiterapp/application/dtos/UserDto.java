@@ -1,5 +1,6 @@
 package br.com.waiterapp.application.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -22,7 +23,7 @@ public class UserDto implements Serializable {
     @NotEmpty(message = "The field name must be required")
     private String name;
     @JsonProperty("birth_date")
-    @NotEmpty(message="The field birth_date must be required")
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date birthDate;
     @NotEmpty(message = "The field email must be required")
     @Email(message = "Plese providedd a valid e-mail")

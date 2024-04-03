@@ -1,4 +1,4 @@
-package br.com.waiterapp.application.mappers;
+package br.com.waiterapp.application.mappers.standarderror;
 
 import br.com.waiterapp.application.controllers.exceptions.FieldErrorDto;
 import br.com.waiterapp.application.controllers.exceptions.StandardErrorDto;

@@ -1,5 +1,6 @@
-package br.com.waiterapp.application.entities;
+package br.com.waiterapp.application.domain.role;
 
+import br.com.waiterapp.application.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

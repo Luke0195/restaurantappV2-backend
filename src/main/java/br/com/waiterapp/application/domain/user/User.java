@@ -1,5 +1,7 @@
-package br.com.waiterapp.application.entities;
+package br.com.waiterapp.application.domain.user;
 
+import br.com.waiterapp.application.domain.user.enums.UserOfficeStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,11 +23,12 @@ public class User  {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date birthDate;
     private String email;
     private String password;
-    @OneToMany(mappedBy = "user")
-    private List<Role> roles = new ArrayList<>();
+    @Enumerated(EnumType.ORDINAL)
+    private UserOfficeStatus status;
 
     /*
     @Override

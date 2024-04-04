@@ -1,6 +1,6 @@
 package br.com.waiterapp.application.services.impl;
 
-import br.com.waiterapp.application.dtos.UserDto;
+import br.com.waiterapp.application.dtos.user.UserDto;
 
 import br.com.waiterapp.application.domain.user.User;
 import br.com.waiterapp.application.mappers.user.UserMapper;
@@ -8,16 +8,9 @@ import br.com.waiterapp.application.repositories.UserRepository;
 import br.com.waiterapp.application.services.UserService;
 import br.com.waiterapp.application.services.exceptions.EntityAlreadyExistsException;
 import lombok.AllArgsConstructor;
-//import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

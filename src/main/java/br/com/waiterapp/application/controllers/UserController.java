@@ -1,6 +1,6 @@
 package br.com.waiterapp.application.controllers;
 
-import br.com.waiterapp.application.dtos.UserDto;
+import br.com.waiterapp.application.dtos.user.UserDto;
 import br.com.waiterapp.application.services.impl.UserServiceImpl;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

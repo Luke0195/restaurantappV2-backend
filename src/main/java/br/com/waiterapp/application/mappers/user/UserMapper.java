@@ -1,9 +1,9 @@
 package br.com.waiterapp.application.mappers.user;
 
 import br.com.waiterapp.application.domain.user.User;
-import br.com.waiterapp.application.dtos.UserDto;
+import br.com.waiterapp.application.dtos.user.UserDto;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+
 import org.mapstruct.factory.Mappers;
 
 @Mapper

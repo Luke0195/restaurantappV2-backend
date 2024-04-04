@@ -17,9 +17,20 @@ jobs:
         cache: maven
     - name: Run all Tests 
       run: mvn -B test --file ./pom.xml
+
+  generate_coverage:
+    needs: ['tests']
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dorny/test-reporter@v1
+        with:
+          artifact: test-results            # artifact name
+          name: JEST Tests                  # Name of the check run which will be created
+          path: '*.xml'                     # Path to test results (inside artifact .zip)
+          reporter: jest-junit 
       
   build:
-    needs: ['tests']
+    needs: ['generate_coverage']
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3

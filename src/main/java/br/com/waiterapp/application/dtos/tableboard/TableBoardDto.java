@@ -1,4 +1,4 @@
-package br.com.waiterapp.application.dtos;
+package br.com.waiterapp.application.dtos.tableboard;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;

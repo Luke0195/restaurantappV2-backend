@@ -1,7 +1,7 @@
 package br.com.waiterapp.application.controllers;
 
 
-import br.com.waiterapp.application.dtos.TableBoardDto;
+import br.com.waiterapp.application.dtos.tableboard.TableBoardDto;
 import br.com.waiterapp.application.services.impl.TableBoardServiceImpl;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

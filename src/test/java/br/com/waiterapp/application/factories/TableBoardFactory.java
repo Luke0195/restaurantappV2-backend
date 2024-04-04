@@ -1,6 +1,6 @@
 package br.com.waiterapp.application.factories;
 
-import br.com.waiterapp.application.dtos.TableBoardDto;
+import br.com.waiterapp.application.dtos.tableboard.TableBoardDto;
 import br.com.waiterapp.application.domain.tableboard.TableBoard;
 
 import java.util.UUID;

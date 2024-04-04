@@ -1,7 +1,10 @@
-package br.com.waiterapp.application.dtos;
+package br.com.waiterapp.application.dtos.user;
 
+import br.com.waiterapp.application.domain.user.enums.UserOfficeStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -30,6 +33,8 @@ public class UserDto implements Serializable {
     private String email;
     @NotEmpty(message= "The field password must be required")
     private String password;
+    @Enumerated(EnumType.ORDINAL)
+    private UserOfficeStatus status;
 
 
 }

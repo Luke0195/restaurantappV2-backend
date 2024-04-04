@@ -30,9 +30,6 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
-
-
-
     @Override
     @Transactional
     public UserDto create(UserDto requestDto) {
@@ -46,6 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = this.repository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found!"));
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());

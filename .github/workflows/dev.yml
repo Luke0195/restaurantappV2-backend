@@ -52,6 +52,22 @@ jobs:
         path: ~/.m2 
         key: ${{ runner.os }}-maven-${{ hashFiles('./pom.xml') }}
         restore-keys: ${{ runner.os }}-maven- 
+    - name: Lint Code
+      uses: lukasmwerner/prettier_action_java@v1.1.1
+      with:
+        commit_message: Lint COde
+        # Commit options
+ #       commit_options: # optional
+        # File pattern used for `git add`
+  #      file_pattern: # optional, default is 
+        # Options for the `prettier` command
+   #     prettier_options: # optional, default is --write **/*.java
+        # Target branch for the changes
+        branch: dev 
+        # Running the script in dry mode just shows whether there are files that should be prettified or not
+     #  dry: # optional
+        # Specific version of prettier (by default just use the latest version)
+      #  prettier_version: # optional
     - name: Build with Maven
       run: mvn -B package --file pom.xml -Dmaven.Test.skip
 

@@ -1,6 +1,9 @@
 package br.com.waiterapp.application.infra.secutiry;
 
 import br.com.waiterapp.application.domain.user.User;
+import br.com.waiterapp.application.dtos.auth.AuthDto;
+import br.com.waiterapp.application.dtos.auth.AuthRequestDto;
+import br.com.waiterapp.application.services.exceptions.TokenGenerationException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -18,7 +21,7 @@ public class TokenService {
 
     @Value("${api.security.token.secret}")
     private String secret;
-    public String generateToken(User user){
+    public String generateToken(AuthRequestDto user){
         try{
             Algorithm algorithm = Algorithm.HMAC256(secret);
             // with-issuer diz que está emitando o token.
@@ -30,7 +33,8 @@ public class TokenService {
                     .sign(algorithm);
 
         }catch (JWTCreationException e ){
-            throw new RuntimeException(" Error while authentication");
+            e.printStackTrace();
+            throw new TokenGenerationException(" Error while authentication");
         }
     }
 

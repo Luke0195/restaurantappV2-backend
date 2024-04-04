@@ -32,7 +32,7 @@ jobs:
     - name: Get Cache from local repository
       uses: actions/cache@v4.0.2
       with:
-        path: ./m2 
+        path: ~/.m2 
         key: ${{ runner.os }}-maven-${{ hashFiles('./pom.xml') }}
         restore-keys: ${{ runner.os }}-maven- 
     - name: Build with Maven

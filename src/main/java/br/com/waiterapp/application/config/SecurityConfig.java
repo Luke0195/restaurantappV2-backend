@@ -39,6 +39,7 @@ public class SecurityConfig {
                     .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
             return http.build();
         } catch (Exception e) {
+            System.out.println("Security Filter");
             e.printStackTrace();
         }
     return null;
@@ -49,8 +50,9 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-
+    @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+
         return authenticationConfiguration.getAuthenticationManager();
     }
 

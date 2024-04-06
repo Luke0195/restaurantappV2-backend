@@ -93,11 +93,11 @@ jobs:
        tags: | 
         luke0195/waiterapp:latest
         luke0195/wtaiterapp:${{github.run_number}}
-   - name: Railway Deploy
-     uses: bervProject/railway-deploy@0.1.2-beta
-     with:
-       railway_token: ${{ secrets.RAILWAY_TOKEN}}
-       service: "myservice"
-       detach: true
+ #  - name: Railway Deploy
+ #    uses: bervProject/railway-deploy@0.1.2-beta
+#     with:
+#       railway_token: ${{ secrets.RAILWAY_TOKEN}}
+#       service: "myservice"
+ #      detach: true
               
 

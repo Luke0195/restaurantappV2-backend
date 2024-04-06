@@ -97,7 +97,7 @@ jobs:
      uses: bervProject/railway-deploy@0.1.2-beta
      with:
       # Railway Token for Deployment
-      railway_token: 'null' # optional
+      railway_token: ${{ secrets.RAILWAY_TOKEN }} # optional
       # The specific service target
       service: 'null'
         # Detach option in the railway cli option

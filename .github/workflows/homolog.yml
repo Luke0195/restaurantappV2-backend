@@ -93,14 +93,11 @@ jobs:
        tags: | 
         luke0195/waiterapp:latest
         luke0195/wtaiterapp:${{github.run_number}}
-   - name: Setup Node.js environment
-     uses: actions/setup-node@v4.0.2
+   - name: Railway Deploy
+     uses: bervProject/railway-deploy@0.1.2-beta
      with:
-        node-version: 20
-   - name: Install Railway
-     run: npm i -g @railway/cli
-   - name: Deploy to railway
-     run: railway up
-     env:
-       RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+       railway_token: ${{ secrets.RAILWAY_TOKEN}}
+       service: "tense-transport"
+       detach: true
+              
 

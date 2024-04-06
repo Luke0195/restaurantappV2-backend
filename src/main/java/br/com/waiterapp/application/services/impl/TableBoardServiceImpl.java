@@ -24,9 +24,9 @@ public class TableBoardServiceImpl implements TableBoardService {
     public TableBoardDto create(TableBoardDto requestDto) {
         Optional<TableBoard> tableBoardAlreadyExists = tableBoardRepository.findByName(requestDto.getName());
         if(tableBoardAlreadyExists.isPresent()) throw new EntityAlreadyExistsException("tableboard already exists");
-        TableBoard tableBoard = TableBoardMapper.INSTANCE.parseToEntity(requestDto);
-        tableBoard = tableBoardRepository.save(tableBoard);
-        return  TableBoardMapper.INSTANCE.parseToDto(tableBoard);
+        TableBoard entity = TableBoardMapper.INSTANCE.parseToEntity(requestDto);
+        entity = tableBoardRepository.save(entity);
+        return  TableBoardMapper.INSTANCE.parseToDto(entity);
     }
 
     @Override

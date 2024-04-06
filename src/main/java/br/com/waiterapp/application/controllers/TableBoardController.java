@@ -21,6 +21,7 @@ import java.net.URI;
 public class TableBoardController {
 
     private TableBoardServiceImpl service;
+
     @PostMapping
     public ResponseEntity<TableBoardDto> createBoard(@Valid  @RequestBody TableBoardDto requestDto){
         TableBoardDto tableBoardResponseDto = service.create(requestDto);

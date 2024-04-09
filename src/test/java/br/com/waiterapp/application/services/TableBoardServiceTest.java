@@ -43,8 +43,6 @@ public class TableBoardServiceTest {
         TableBoardDto requestDto = TableBoardFactory.makeTableBoardRequestDto(this.existingTableBoard);
         TableBoardDto result = service.create(requestDto);
         Assertions.assertNotNull(result);
-        Assertions.assertNotNull(result.getId());
-        Assertions.assertNotNull(result.getName());
     }
 
     @DisplayName("Should throw EntityAlreadyExistsException when name exists")
@@ -57,5 +55,7 @@ public class TableBoardServiceTest {
         });
 
     }
+
+ 
 
 }

@@ -16,5 +16,4 @@ public class TableBoardFactory {
         return TableBoardDto.builder().name(entity.getName()).build();
     }
 
-
 }

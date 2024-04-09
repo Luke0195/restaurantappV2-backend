@@ -16,7 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "tableboards")
+@RequestMapping(value = "/tableboards")
 @AllArgsConstructor
 public class TableBoardController {
 

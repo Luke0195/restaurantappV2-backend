@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> emailAlreadyExists = repository.findByEmail(requestDto.getEmail());
         if (emailAlreadyExists.isPresent()) throw new EntityAlreadyExistsException("This e-mail is already taken!");
         String hashedPassword = passwordEncoder.encode(requestDto.getPassword());
-        User user  = UserMapper.INSTANCE.mapUserDtoToEntity(requestDto);
+        User user = UserMapper.INSTANCE.mapUserDtoToEntity(requestDto);
         user.setPassword(hashedPassword);
         user = repository.save(user);
         return UserMapper.INSTANCE.mapUserToDto(user);

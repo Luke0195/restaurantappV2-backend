@@ -5,7 +5,7 @@ import br.com.waiterapp.application.domain.tableboard.TableBoard;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface TableBoardMapper {
     TableBoardMapper INSTANCE = Mappers.getMapper(TableBoardMapper.class);
 

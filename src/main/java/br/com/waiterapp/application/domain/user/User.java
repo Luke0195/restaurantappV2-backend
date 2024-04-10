@@ -36,13 +36,7 @@ public class User  implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this
-                .getStatus()
-                .getCurrentStatus() == 0
-                ?
-                List.of( new SimpleGrantedAuthority("ADMIN"), new SimpleGrantedAuthority("WAITER"))
-                :
-                List.of( new SimpleGrantedAuthority("ADMIN"));
+        return List.of(new SimpleGrantedAuthority("ADMIN"));
     }
 
     @Override

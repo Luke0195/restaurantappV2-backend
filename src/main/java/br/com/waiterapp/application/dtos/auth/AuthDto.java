@@ -12,7 +12,5 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 public class AuthDto implements Serializable {
-
     private String token;
-    private Integer expiredIn;
 }

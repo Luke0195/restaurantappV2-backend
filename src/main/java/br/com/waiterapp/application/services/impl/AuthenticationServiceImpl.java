@@ -5,6 +5,8 @@ import br.com.waiterapp.application.dtos.auth.AuthDto;
 import br.com.waiterapp.application.dtos.auth.AuthRequestDto;
 import br.com.waiterapp.application.repositories.UserRepository;
 import br.com.waiterapp.application.services.AuthenticationService;
+import br.com.waiterapp.application.services.exceptions.TokenGenerationException;
+import br.com.waiterapp.application.services.exceptions.TokenValidationException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -18,52 +20,61 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.time.temporal.ChronoField;
-import java.util.Optional;
+import java.util.ArrayList;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Value("${api.security.token.secret}")
-    private String tokenSecret;
+    private  String tokenSecret;
 
     @Autowired
     private UserRepository repository;
 
     @Override
-    public AuthDto generateToken(AuthRequestDto dto) {
-       try{
-           Algorithm algorithm = Algorithm.HMAC256(tokenSecret);
-           String token = JWT.create()
-                   .withIssuer("waiterapp")
-                   .withSubject(dto.getEmail())
-                   .withExpiresAt(generateTokenExpiration())
-                   .sign(algorithm);
-           return AuthDto.builder().token(token).expiredIn(generateTokenExpiration().get(ChronoField.INSTANT_SECONDS)).build();
-       }catch (JWTCreationException e){
-           e.printStackTrace();
-           throw new RuntimeException("Error to authentication");
-       }
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = repository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
     }
 
     @Override
     public String validateToken(String token) {
-        try{
-             Algorithm algorithm = Algorithm.HMAC256(tokenSecret);
-             return JWT.require(algorithm).withIssuer("waiterapp").build().verify(tokenSecret).getSubject();
-        }catch (JWTVerificationException e){
-            throw new RuntimeException("Fails to validate token");
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(tokenSecret);
+            return JWT.require(algorithm).withIssuer("waiterapp").build().verify(token).getSubject();
+        } catch (JWTVerificationException exception) {
+            return "";
+
         }
     }
 
-    private static Instant generateTokenExpiration(){
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+    public String generateToken(AuthRequestDto dto) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(tokenSecret);
+            return JWT.create()
+                    .withIssuer("waiterapp")
+                    .withSubject(dto.getEmail())
+                    .withExpiresAt(generateTokenGenerate())
+                    .sign(algorithm);
+        } catch (JWTCreationException e) {
+            e.printStackTrace();
+            throw new TokenGenerationException("Fails to generate a token" + e.getMessage());
+
+        }
     }
 
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> userAlreadyExists = repository.findByEmail(username);
-        return userAlreadyExists.get();
+    private static Instant generateTokenGenerate() {
+        return LocalDateTime.now().plusHours(8).toInstant(ZoneOffset.of("-03:00"));
     }
+
+    public String validTokenJwt(String token) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(tokenSecret);
+            return JWT.require(algorithm).withIssuer("waiterapp").build().verify(token).getSubject();
+        } catch (JWTVerificationException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
 }

@@ -3,6 +3,7 @@ package br.com.waiterapp.application.config;
 import br.com.waiterapp.application.domain.user.User;
 import br.com.waiterapp.application.repositories.UserRepository;
 
+import br.com.waiterapp.application.services.exceptions.EntityNotFoundException;
 import br.com.waiterapp.application.services.impl.AuthenticationServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -16,7 +17,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.Objects;
-import java.util.Optional;
+
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
@@ -30,11 +31,10 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = extractHeader(request);
+        String login = authenticationService.validateToken(token);
         if(token != null){
-            String login = authenticationService.validateToken(token);
-            Optional<User> user = userRepository.findByEmail(login);
-            if(user.isEmpty()) throw new RuntimeException("Required Authentication");
-            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.get().getAuthorities());
+            User user = userRepository.findByEmail(login).orElseThrow(() -> new EntityNotFoundException("Cannot find user"));
+            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);

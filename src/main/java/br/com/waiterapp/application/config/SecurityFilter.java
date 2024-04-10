@@ -1,12 +1,13 @@
-package br.com.waiterapp.application.infra.secutiry;
+package br.com.waiterapp.application.config;
 
 import br.com.waiterapp.application.domain.user.User;
 import br.com.waiterapp.application.repositories.UserRepository;
+
+import br.com.waiterapp.application.services.impl.AuthenticationServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,33 +15,36 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Objects;
+import java.util.Optional;
 
-// OncePerRequest é um filtro  para interceptar o usuário.
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
-    @Autowired(required = true)
-    private TokenService tokenService;
-    @Autowired(required = true)
-    private UserRepository userRepository;
 
+    @Autowired
+    private AuthenticationServiceImpl authenticationService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        var token = recoveryToken(request);
-        var login = tokenService.validateToken(token);
-        if (login != null) {
-            User user = userRepository.findByEmail(login).orElseThrow(() -> new RuntimeException("User not found"));
-            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+        String token = extractHeader(request);
+        if(token != null){
+            String login = authenticationService.validateToken(token);
+            Optional<User> user = userRepository.findByEmail(login);
+            if(user.isEmpty()) throw new RuntimeException("Required Authentication");
+            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.get().getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);
     }
 
-
-    private String recoveryToken(HttpServletRequest request) {
+    public String extractHeader(HttpServletRequest request){
         var authHeader = request.getHeader("Authorization");
-        if (authHeader == null) return null;
-        return authHeader.replace("Bearer ", "");
+        if(Objects.isNull(authHeader)) return null;
+        if(!authHeader.split(" ")[0].equals("Bearer")) return null;
+        return authHeader.split(" ")[1];
     }
 
 }

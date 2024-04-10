@@ -14,4 +14,5 @@ import java.io.Serializable;
 public class AuthDto implements Serializable {
 
     private String token;
+    private Integer expiredIn;
 }

@@ -9,11 +9,11 @@ public class TableBoardFactory {
 
 
     public static TableBoard makeTableBoard(){
-        return TableBoard.builder().id(UUID.randomUUID()).name("any_name").build();
+        return TableBoard.builder().name("any_name").build();
     }
 
     public static TableBoardDto makeTableBoardRequestDto(TableBoard entity){
-        return TableBoardDto.builder().name(entity.getName()).build();
+        return TableBoardDto.builder().id(null).name(entity.getName()).build();
     }
 
 

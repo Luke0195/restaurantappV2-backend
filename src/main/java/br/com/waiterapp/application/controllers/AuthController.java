@@ -6,6 +6,7 @@ import br.com.waiterapp.application.dtos.auth.AuthRequestDto;
 import br.com.waiterapp.application.dtos.user.UserDto;
 
 import br.com.waiterapp.application.repositories.UserRepository;
+import br.com.waiterapp.application.services.exceptions.InvalidCredentialsException;
 import br.com.waiterapp.application.services.impl.AuthenticationServiceImpl;
 import br.com.waiterapp.application.services.impl.UserServiceImpl;
 import br.com.waiterapp.application.utils.httputils.HttpUtil;
@@ -42,7 +43,7 @@ public class AuthController  {
 
     @PostMapping("/login")
     public ResponseEntity<AuthDto> authentication(@Valid @RequestBody AuthRequestDto dto){
-        User user = userRepository.findByEmail(dto.getEmail()).orElseThrow(() -> new RuntimeException("Invalid Crendencials"));
+        User user = userRepository.findByEmail(dto.getEmail()).orElseThrow(() -> new InvalidCredentialsException("Invalid Crendencials"));
         if(passwordEncoder.matches(dto.getPassword() , user.getPassword())){
             String token = authenticationService.generateToken(dto);
             return ResponseEntity.status(HttpStatus.OK).body(AuthDto.builder().token(token).build());

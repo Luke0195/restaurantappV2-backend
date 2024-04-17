@@ -13,7 +13,7 @@ public class StandardErrorMapper {
     public static StandardErrorDto makeStandardError(Integer status, String error, String exceptionMessage, String pathUrl, List<FieldErrorDto> validationFieldErrors){
         return StandardErrorDto
                 .builder()
-                .timestamp(Instant.now())
+                .timestamp(Instant.now().toString())
                 .status(status)
                 .error(error)
                 .exceptionMessage(exceptionMessage)

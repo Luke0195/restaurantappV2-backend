@@ -7,15 +7,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.UUID;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CategoryDto implements Serializable {
+public class CategoryRequestDto implements Serializable {
 
-    private UUID id;
+
     @NotEmpty(message = "The field name must be required")
     private String name;
     @NotEmpty(message = "The field icon must be required")

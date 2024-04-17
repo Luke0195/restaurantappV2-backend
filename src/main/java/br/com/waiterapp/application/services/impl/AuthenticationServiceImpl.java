@@ -1,12 +1,11 @@
 package br.com.waiterapp.application.services.impl;
 
 import br.com.waiterapp.application.domain.user.User;
-import br.com.waiterapp.application.dtos.auth.AuthDto;
 import br.com.waiterapp.application.dtos.auth.AuthRequestDto;
 import br.com.waiterapp.application.repositories.UserRepository;
 import br.com.waiterapp.application.services.AuthenticationService;
 import br.com.waiterapp.application.services.exceptions.TokenGenerationException;
-import br.com.waiterapp.application.services.exceptions.TokenValidationException;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;

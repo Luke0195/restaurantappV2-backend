@@ -1,5 +1,6 @@
 package br.com.waiterapp.application.controllers.exceptions;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +18,8 @@ import java.util.List;
 @Builder
 public class StandardErrorDto implements Serializable {
 
-    private Instant timestamp;
+    @JsonFormat(pattern = "yyyy-mm-dd hh:MM:ss")
+    private String timestamp;
     private Integer status;
     private String error;
     @JsonProperty("exception_message")

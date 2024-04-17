@@ -32,7 +32,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = extractHeader(request);
         String login = authenticationService.validateToken(token);
-        if(token != null){
+        if (token != null) {
             User user = userRepository.findByEmail(login).orElseThrow(() -> new EntityNotFoundException("Cannot find user"));
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -40,10 +40,10 @@ public class SecurityFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    public String extractHeader(HttpServletRequest request){
+    public String extractHeader(HttpServletRequest request) {
         var authHeader = request.getHeader("Authorization");
-        if(Objects.isNull(authHeader)) return null;
-        if(!authHeader.split(" ")[0].equals("Bearer")) return null;
+        if (Objects.isNull(authHeader)) return null;
+        if (!authHeader.split(" ")[0].equals("Bearer")) return null;
         return authHeader.split(" ")[1];
     }
 

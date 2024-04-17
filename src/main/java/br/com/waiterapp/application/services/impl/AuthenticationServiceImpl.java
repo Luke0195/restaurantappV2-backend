@@ -6,6 +6,7 @@ import br.com.waiterapp.application.repositories.UserRepository;
 import br.com.waiterapp.application.services.AuthenticationService;
 import br.com.waiterapp.application.services.exceptions.TokenGenerationException;
 
+import br.com.waiterapp.application.services.exceptions.TokenValidationException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -42,7 +43,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             Algorithm algorithm = Algorithm.HMAC256(tokenSecret);
             return JWT.require(algorithm).withIssuer("waiterapp").build().verify(token).getSubject();
         } catch (JWTVerificationException exception) {
-            return "";
+            throw new TokenValidationException("Invalid token");
 
         }
     }

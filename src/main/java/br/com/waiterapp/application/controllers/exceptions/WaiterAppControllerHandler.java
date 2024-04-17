@@ -49,7 +49,6 @@ public class WaiterAppControllerHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<StandardErrorDto> entityNotFound(HttpServletRequest httpServletRequest, EntityNotFoundException exceptionMessage){
-        System.out.println("Cai Aqui");
         int badRequest = HttpStatus.BAD_REQUEST.value();
         String pathUrl = HttpUtil.getUrlToHttpServletRequest(httpServletRequest);
         StandardErrorDto responseError = StandardErrorMapper.makeStandardError(badRequest,
@@ -69,23 +68,19 @@ public class WaiterAppControllerHandler {
         return ResponseEntity.status(badRequest).body(responseError);
     }
 
-    @ExceptionHandler(JWTDecodeException.class)
-    public ResponseEntity<StandardErrorDto> tokenValidationFail(HttpServletRequest httpServletRequest,
-                                                                TokenValidationException exceptionMessage){
+    @ExceptionHandler(TokenValidationException.class)
+    public ResponseEntity<StandardErrorDto> tokenValidationFail(HttpServletRequest httpServletRequest, TokenValidationException exceptionMessage){
         int unauthorized = HttpStatus.UNAUTHORIZED.value();
         String pathUrl = HttpUtil.getUrlToHttpServletRequest(httpServletRequest);
         StandardErrorDto responseError = StandardErrorMapper.makeStandardError(unauthorized,
                 "Token Validation Fails", exceptionMessage.getMessage(), pathUrl, null);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseError);
     }
-    @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<StandardErrorDto> tokenValidationFail(HttpServletRequest httpServletRequest, AccessDeniedException exceptionMessage){
-        int unauthorized = HttpStatus.UNAUTHORIZED.value();
-        String pathUrl = HttpUtil.getUrlToHttpServletRequest(httpServletRequest);
-        StandardErrorDto responseError = StandardErrorMapper.makeStandardError(unauthorized,
-                "You are unathorized to do this action", exceptionMessage.getMessage(), pathUrl, null);
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseError);
-    }
+
+
+
+
+
 
 
 
@@ -111,4 +106,5 @@ public class WaiterAppControllerHandler {
         Collections.reverse(errors);
         return errors;
     }
+
 }
